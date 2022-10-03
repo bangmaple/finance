@@ -1,16 +1,21 @@
 import React from 'react';
 import {StackNavigator, StackScreen} from "../../utils";
-import ExpenseScreen from "../../screens/expense.screen";
-import Header from "../../components/header.component";
+import ExpenseScreen from "../../screens/home/expenses/expense.screen";
+import {ROUTER} from "../../constants";
 const ViewExpensesNavigation = () => {
 
   return (
-    <StackNavigator initialRouteName={"VIEW_EXPENSES_SCREEN"} screenOptions={{
+    <StackNavigator
+        initialRouteName={ROUTER.HOME.EXPENSES.EXPENSES_SCREEN}
+        screenOptions={{
       headerShown: false,
     }}>
-      <StackScreen name="VIEW_EXPENSES_SCREEN" component={ExpenseScreen}/>
+      <StackScreen
+          name={ROUTER.HOME.EXPENSES.EXPENSES_SCREEN}
+          component={ExpenseScreen}
+      />
     </StackNavigator>
   );
 };
 
-export default React.memo(ViewExpensesNavigation);
+export default ViewExpensesNavigation;

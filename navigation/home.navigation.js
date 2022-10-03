@@ -1,22 +1,32 @@
 import React from 'react';
 import {StackNavigator, StackScreen} from "../utils";
-import HomeScreen from "../screens/home.screen";
+import HomeScreen from "../screens/home/home.screen";
 import UploadExpenseNavigation from "./upload-expense/upload-expense.navigation";
 import ViewExpensesNavigation from "./view-expenses/view-expenses.navigation";
+import {ROUTER} from "../constants";
 
 const HomeNavigation = () => {
   return (
     <StackNavigator
-      initialRouteName={'HOME_SCREEN'}
+      initialRouteName={ROUTER.HOME.HOME_SCREEN}
       screenOptions={{
         headerShown: false,
       }}
     >
-      <StackScreen name={"HOME_SCREEN"} component={HomeScreen}/>
-      <StackScreen name={"UPLOAD_EXPENSE"} component={UploadExpenseNavigation}/>
-      <StackScreen name={"VIEW_EXPENSES"} component={ViewExpensesNavigation}/>
+      <StackScreen
+          name={ROUTER.HOME.HOME_SCREEN}
+          component={HomeScreen}
+      />
+      <StackScreen
+          name={ROUTER.HOME.UPLOAD_EXPENSE.UPLOAD_EXPENSE_ROUTE}
+          component={UploadExpenseNavigation}
+      />
+      <StackScreen
+          name={ROUTER.HOME.EXPENSES.EXPENSES_ROUTE}
+          component={ViewExpensesNavigation}
+      />
     </StackNavigator>
   )
 };
 
-export default React.memo(HomeNavigation);
+export default HomeNavigation;

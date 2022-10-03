@@ -1,9 +1,9 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, VirtualizedList} from "react-native";
-import {deviceHeight, deviceWidth} from "../utils";
-import {ORANGE_COLOR, WHITE_COLOR} from "../constants";
-import {boxShadow} from "../utils";
-import Header from "../components/header.component";
+import {deviceHeight, deviceWidth} from "../../../utils";
+import {ORANGE_COLOR, WHITE_COLOR} from "../../../constants";
+import {boxShadow} from "../../../utils";
+import Header from "../../../components/header.component";
 
 const data = [{
   id: '1234'

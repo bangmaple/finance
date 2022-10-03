@@ -18,7 +18,6 @@ const makeStore = () => {
     reducer: reducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       serializableCheck: false
-
     }),
   });
 };

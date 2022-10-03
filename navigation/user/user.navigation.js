@@ -1,6 +1,6 @@
 import React from 'react';
 import {StackNavigator, StackScreen} from "../../utils";
-import UserScreen from "../../screens/user.screen";
+import UserScreen from "../../screens/user/user.screen";
 
 const UserNavigation = () => {
 
@@ -14,4 +14,4 @@ const UserNavigation = () => {
     );
 };
 
-export default React.memo(UserNavigation);
+export default UserNavigation;

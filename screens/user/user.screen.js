@@ -1,12 +1,12 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {BLACK_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../constants";
+import {BLACK_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../../constants";
 import {UserIcon} from "react-native-heroicons/solid";
-import {boxShadow, deviceHeight, deviceWidth} from "../utils";
+import {boxShadow, deviceHeight, deviceWidth} from "../../utils";
 import {LockClosedIcon} from "react-native-heroicons/outline";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
-import UserHeader from "../components/app/user/header.component";
+import UserHeader from "../../components/app/user/header.component";
 
 const UserScreen = () => {
 

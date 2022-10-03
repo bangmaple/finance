@@ -4,12 +4,13 @@ import HomeNavigation from "./home.navigation";
 import UserNavigation from "./user/user.navigation";
 import {HomeIcon, UserIcon} from "react-native-heroicons/solid";
 import {Platform} from "react-native";
+import {ROUTER} from "../constants";
 
 const MainBottomTab= () => {
 
     return (
         <TabNavigator
-            initialRouteName={"HOME_NAVIGATION"}
+            initialRouteName={"HOME_TAB"}
             screenOptions={{
                 tabBarStyle: {
                     height: Platform.OS === 'android' ? 80 : 70,
@@ -18,7 +19,7 @@ const MainBottomTab= () => {
             }}
         >
             <TabScreen
-                name={"HOME_NAVIGATION"}
+                name="HOME_TAB"
                 component={HomeNavigation}
                 options={{
                     tabBarIcon: () => <HomeIcon color="black" size={30} />,
@@ -26,9 +27,8 @@ const MainBottomTab= () => {
                 }}
             />
 
-
             <TabScreen
-                name={"USER_NAVIGATION"}
+                name={ROUTER.USER.USER_SCREEN}
                 component={UserNavigation}
                 options={{
                     tabBarLabel: () => null,

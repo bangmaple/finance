@@ -25,18 +25,20 @@ const UploadImage = (props) => {
     const handleOpenImagePicker = async () => {
         const response = await launchImageLibrary({
             mediaType: 'photo',
-            selectionLimit: 1,
             includeExtra: false,
         });
-        const asset = response.assets[0];
-        setImage(asset);
+        if (response.assets?.length > 0) {
+            const asset = response.assets[0];
+            console.log(asset.fileSize);
+            setImage(asset);
+        }
+
     }
 
     return (
         <TouchableOpacity onPress={() => handleOpenImagePicker()} style={styles.container}>
             {image ? <Image style={styles.imageContainer} source={image}/> : <BlankImage/>}
         </TouchableOpacity>
-
     );
 };
 

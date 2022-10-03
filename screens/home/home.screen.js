@@ -1,9 +1,9 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import Button from "../components/button.component";
-import {boxShadow, deviceHeight, deviceWidth} from "../utils";
-import {WHITE_COLOR} from "../constants";
+import Button from "../../components/button.component";
+import {boxShadow, deviceHeight, deviceWidth} from "../../utils";
+import {ROUTER, WHITE_COLOR} from "../../constants";
 import {BanknotesIcon, CurrencyDollarIcon} from "react-native-heroicons/outline";
 
 const HomeScreen = () => {
@@ -29,13 +29,13 @@ const HomeScreen = () => {
     const Section = () => {
       const handleNavigateUploadExpense = () => {
         setTimeout(() => {
-          navigation.navigate('UPLOAD_EXPENSE');
+          navigation.navigate(ROUTER.HOME.UPLOAD_EXPENSE.UPLOAD_EXPENSE_ROUTE);
         }, 1);
       };
 
       const handleNavigationViewExpenses = () => {
         setTimeout(() => {
-          navigation.navigate('VIEW_EXPENSES');
+          navigation.navigate(ROUTER.HOME.EXPENSES.EXPENSES_ROUTE);
         }, 1);
       }
 

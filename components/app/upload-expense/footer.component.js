@@ -4,11 +4,15 @@ import {deviceHeight, deviceWidth} from "../../../utils";
 import {INPUT_GRAY_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../../../constants";
 import {ChevronDoubleRightIcon} from "react-native-heroicons/outline";
 
-const Footer = () => {
+const Footer = (props) => {
+
+    const handleOnSubmit = () => {
+        alert(JSON.stringify(props.data));
+    }
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.nextStepButton}>
+            <TouchableOpacity style={styles.nextStepButton} onPress={() => handleOnSubmit()}>
                 <Text style={styles.nextStepButtonText}>
                     Proceed to next step
                 </Text>
