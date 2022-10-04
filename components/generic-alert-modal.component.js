@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, View, StyleSheet, Text, TouchableOpacity} from "react-native";
 import {BLACK_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../constants";
-import {deviceHeight, deviceWidth} from "../utils";
+import {deviceHeight, deviceWidth, getFontScaledSize} from "../utils";
 import {useDispatch, useSelector} from "react-redux";
 import {ExclamationCircleIcon} from "react-native-heroicons/outline";
 import {toggleGenericAlertModalOff} from "../redux/slices/app";
@@ -31,7 +31,7 @@ const GenericAlertModal = (props) => {
           ]}
         >
           <View style={styles.modalWrapper}>
-            <ExclamationCircleIcon color={ORANGE_COLOR} size={deviceWidth / 8}/>
+            <ExclamationCircleIcon color={ORANGE_COLOR} size={getFontScaledSize(60)}/>
             <Text style={styles.modalMessage}>
               {alertModalMessage}
             </Text>
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
   },
   modalWrapper: {
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modalMessage: {
     color: BLACK_COLOR,
     fontWeight: '600',
-    fontSize: deviceWidth / 21,
+    fontSize: getFontScaledSize(26),
     flexWrap: 'wrap'
   },
   modalConfirmButton: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   modalConfirmButtonText: {
     color: WHITE_COLOR,
-    fontSize: deviceWidth / 21,
+    fontSize: getFontScaledSize(23),
     fontWeight: '600',
     flexWrap: 'wrap'
   }

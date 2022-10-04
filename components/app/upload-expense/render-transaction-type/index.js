@@ -1,0 +1,1 @@
+export * from './render-transaction-type.component';

@@ -1,0 +1,1 @@
+export * from './render-sale-type.component';

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {PixelRatio, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BLACK_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../../../constants";
 import {deviceHeight, deviceWidth} from "../../../utils";
 import {UserIcon} from "react-native-heroicons/solid";
@@ -14,7 +14,7 @@ const UserHeader = () => {
             <View style={styles.wrapper}>
                 <TouchableOpacity>
                     <View style={styles.userAvatar}>
-                        <UserIcon color={ORANGE_COLOR} size={deviceWidth / 8}/>
+                        <UserIcon color={ORANGE_COLOR} size={40 / PixelRatio.getFontScale()}/>
                     </View>
                 </TouchableOpacity>
                 <View style={styles.userInformation}>

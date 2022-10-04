@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {ChevronLeftIcon} from "react-native-heroicons/outline";
 import {BLACK_COLOR, ORANGE_COLOR} from "../constants";
-import {deviceWidth} from "../utils";
+import {deviceWidth, getFontScaledSize} from "../utils";
 
 const Header = (props) => {
 
@@ -12,9 +12,9 @@ const Header = (props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => navigation.pop()}>
-        <ChevronLeftIcon color={ORANGE_COLOR} size={deviceWidth / 14}/>
+        <ChevronLeftIcon color={ORANGE_COLOR} size={getFontScaledSize(36)}/>
       </TouchableOpacity>
-      <Text style={{fontSize: deviceWidth / 16, fontWeight: '600', color: BLACK_COLOR}}>{props.text}</Text>
+      <Text style={styles.titleText}>{props.text}</Text>
       {props.children}
     </View>
   );
@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     left: 16
+  },
+  titleText: {
+    fontSize: getFontScaledSize(30),
+    fontWeight: '600',
+    color: BLACK_COLOR
   }
 });
 

@@ -1,0 +1,1 @@
+export * from './render-input-amount.component';

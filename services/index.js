@@ -1,15 +1,11 @@
 const verifyPassword = (email) => {
-  if (!email || email.length < 1 || email === "") {
-    return false;
-  }
-  return true;
+  return !(!email || email.length < 1 || email === "");
+
 };
 
 const verifyEmailAddress = (email) => {
-  if (!email || email.length < 1 || email === "") {
-    return false;
-  }
-  return true;
+  return !(!email || email.length < 1 || email === "");
+
 };
 
 const verifyCredentials = (email, password) => {

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import LoginBackground from '../../assets/background/login-background.svg';
 import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {deviceHeight, deviceWidth} from "../../utils";
+import {deviceHeight, deviceWidth, getFontScaledSize} from "../../utils";
 import {BLACK_COLOR, INPUT_GRAY_COLOR, ORANGE_COLOR, RED_COLOR, ROUTER, WHITE_COLOR} from "../../constants";
 import {boxShadow} from "../../utils";
 import Button from "../../components/button.component";
@@ -22,13 +22,15 @@ const LoginScreen = () => {
     });
 
     const handleLogin = () => {
-        void emailPasswordSignIn(dispatch, credentials.email, credentials.password)
-            .then(() => navigation.navigate(ROUTER.HOME.HOME_ROUTE));
+        void emailPasswordSignIn(navigation, dispatch, credentials.email, credentials.password);
     };
 
     return (
         <>
-            <LoginBackground style={{ position: 'absolute' }}/>
+            <LoginBackground  height="100%"
+                              preserveAspectRatio="xMinYMin slice"
+                              width="100%"
+                               style={{ position: 'absolute' }}/>
             <SafeAreaView style={styles.wrapper}>
                 <View style={[styles.loginContainer, boxShadow(styles)]}>
                     <View style={styles.loginForm}>
@@ -60,18 +62,22 @@ const LoginScreen = () => {
                         </View>
                     </View>
 
-                    <View style={styles.loginOptionContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate(ROUTER.AUTHENTICATION.REGISTER_SCREEN)}>
+                    {/* <View style={styles.loginOptionContainer}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate(ROUTER.AUTHENTICATION.REGISTER_SCREEN)}
+                        >
                             <Text style={styles.loginOptionText}>Register</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate(ROUTER.AUTHENTICATION.FORGOT_PASSWORD_SCREEN)}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate(ROUTER.AUTHENTICATION.FORGOT_PASSWORD_SCREEN)}
+                        >
                             <Text style={styles.loginOptionText}>Forgot password?</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View>*/}
 
                     <Button styles={styles.loginButton} onPress={() => handleLogin()}>
-                        <LockOpenIcon color={WHITE_COLOR} size={deviceWidth / 16}/>
+                        <LockOpenIcon color={WHITE_COLOR} size={getFontScaledSize(30)}/>
                         <Text style={styles.loginButtonText}>Login</Text>
                     </Button>
 
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         color: WHITE_COLOR,
-        fontSize: deviceWidth / 21,
+        fontSize: getFontScaledSize(23),
         fontWeight: '600',
         paddingLeft: 10,
     },
@@ -126,13 +132,14 @@ const styles = StyleSheet.create({
     inputTitle: {
         color: BLACK_COLOR,
         fontWeight: '600',
-        fontSize: deviceWidth / 23,
+        fontSize: getFontScaledSize(23),
         paddingRight: 6,
     },
     inputTitleAsterik: {
         color: RED_COLOR, fontWeight: '600'
     },
     formInput: {
+        fontSize: getFontScaledSize(23),
         height: deviceHeight / 20,
         paddingHorizontal: 10,
         borderRadius: 8,
@@ -142,7 +149,6 @@ const styles = StyleSheet.create({
     },
     loginOptionContainer: {
         flexDirection: 'row',
-        paddingTop: 32,
         width: deviceWidth / 1.35,
         display: 'flex',
         justifyContent: 'space-between'
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
     loginOptionText: {
         color: ORANGE_COLOR,
         fontWeight: '400',
-        fontSize: deviceWidth / 28
+        fontSize: getFontScaledSize(23)
     }
 });
 

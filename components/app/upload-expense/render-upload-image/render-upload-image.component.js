@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {deviceHeight, deviceWidth} from "../../../utils";
+import {deviceHeight, deviceWidth, getFontScaledSize} from "../../../../utils";
 import {Text, TouchableOpacity, View, StyleSheet, Image} from "react-native";
-import {GRAY_COLOR, INPUT_GRAY_COLOR} from "../../../constants";
-import {CameraIcon} from "react-native-heroicons/solid";
+import {GRAY_COLOR, INPUT_GRAY_COLOR, ROUTER} from "../../../../constants";
 import {launchImageLibrary} from "react-native-image-picker";
+import BlankImage from "./blank-image.component";
+import {useNavigation} from "@react-navigation/native";
 
-const UploadImage = (props) => {
+const UPLOAD_IMAGE_LIST_ROUTE = ROUTER.HOME.UPLOAD_EXPENSE.UPLOAD_IMAGE_LIST.UPLOAD_IMAGE_LIST_ROUTE;
+
+const RenderUploadImage = (props) => {
+
+    const navigation = useNavigation();
 
     const [image, setImage] = useState();
 
@@ -13,14 +18,6 @@ const UploadImage = (props) => {
         console.log(image)
     }, [image]);
 
-    const BlankImage = () => {
-        return (
-            <>
-                <CameraIcon color={GRAY_COLOR} size={deviceWidth / 10}/>
-                <Text style={styles.containerPlaceholder}>Upload your image here...</Text>
-            </>
-        );
-    }
 
     const handleOpenImagePicker = async () => {
         const response = await launchImageLibrary({
@@ -32,12 +29,20 @@ const UploadImage = (props) => {
             console.log(asset.fileSize);
             setImage(asset);
         }
+    }
 
+    const RenderImage = () => {
+        if (image) {
+            return <TouchableOpacity onPress={() => navigation.navigate(UPLOAD_IMAGE_LIST_ROUTE)}>
+                <Image style={styles.imageContainer} source={image}/>
+            </TouchableOpacity>;
+        }
+        return <BlankImage/>
     }
 
     return (
         <TouchableOpacity onPress={() => handleOpenImagePicker()} style={styles.container}>
-            {image ? <Image style={styles.imageContainer} source={image}/> : <BlankImage/>}
+            <RenderImage/>
         </TouchableOpacity>
     );
 };
@@ -52,11 +57,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    containerPlaceholder: {
-        color: GRAY_COLOR,
-        fontWeight: '600',
-        fontSize: deviceWidth / 23
-    },
     imageContainer: {
         maxHeight: deviceHeight / 4.6,
         maxWidth: deviceWidth / 1.15,
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default UploadImage;
+export default RenderUploadImage;

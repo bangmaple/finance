@@ -1,0 +1,1 @@
+export * from './render-upload-image.component';

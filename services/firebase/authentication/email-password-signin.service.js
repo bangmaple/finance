@@ -8,8 +8,9 @@ import {
 } from "../../../redux/slices/app";
 import {ERRORS} from '../../../constants/error-message.constant';
 import {Keyboard} from "react-native";
+import {ROUTER} from "../../../constants";
 
-export const emailPasswordSignIn = async (dispatch, email, password) => {
+export const emailPasswordSignIn = async (navigation, dispatch, email, password) => {
     Keyboard.dismiss();
     dispatch(toggleSpinnerOn());
     if (!email || !password || email.length < 2 || password.length < 1) {
@@ -21,6 +22,7 @@ export const emailPasswordSignIn = async (dispatch, email, password) => {
     return auth()
         .signInWithEmailAndPassword(email, password)
         .then((e) => dispatch(setAuthenticatedUser(e)))
+        .then(() => navigation.navigate(ROUTER.HOME.HOME_ROUTE))
         .finally(() => dispatch(toggleSpinnerOff()))
         .catch(error => {
             dispatch(toggleGenericAlertModalOn());

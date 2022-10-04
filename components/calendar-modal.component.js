@@ -1,21 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import AlertModal from "./alert-modal.component";
-import {deviceHeight, deviceWidth} from "../utils";
+import {deviceHeight, deviceWidth, getFontScaledSize} from "../utils";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BLACK_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../constants";
 import {Calendar} from "react-native-calendars/src/index";
-import {ArrowDownCircleIcon, ArrowRightIcon, CheckIcon, XMarkIcon} from "react-native-heroicons/outline";
-import {ArrowLeftIcon, ChevronLeftIcon, ChevronRightIcon} from "react-native-heroicons/solid";
+import {CheckIcon, XMarkIcon} from "react-native-heroicons/outline";
+import {ChevronLeftIcon, ChevronRightIcon} from "react-native-heroicons/solid";
 
 const CalendarModal = (props) => {
 
     const [date, setDate] = useState(props.value);
 
     const Footer = () => {
-
-        useEffect(() => {
-            console.log(date);
-        }, [date]);
 
         const handleConfirm = () => {
             props.setValue(date);
@@ -25,11 +21,11 @@ const CalendarModal = (props) => {
         return (
             <View style={styles.footerContainer}>
                 <TouchableOpacity style={styles.cancelButton} onPress={() => props.toggleOpened()}>
-                    <XMarkIcon color={ORANGE_COLOR} size={deviceWidth / 16}/>
+                    <XMarkIcon color={ORANGE_COLOR} size={getFontScaledSize(30)}/>
                     <Text style={styles.cancelButtonText}>Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.confirmButton} onPress={() => handleConfirm()}>
-                    <CheckIcon color={WHITE_COLOR} size={deviceWidth / 16}/>
+                    <CheckIcon color={WHITE_COLOR} size={getFontScaledSize(30)}/>
                     <Text style={styles.confirmButtonText}>Confirm</Text>
                 </TouchableOpacity>
             </View>
@@ -45,8 +41,8 @@ const CalendarModal = (props) => {
             {props.title ? <Text style={styles.title}>{props.title}</Text> : null}
             <Calendar
                 renderArrow={(direction) => direction === 'left'
-                    ? <ChevronLeftIcon color={ORANGE_COLOR} size={deviceWidth / 16}/>
-                    : <ChevronRightIcon color={ORANGE_COLOR} size={deviceWidth / 16}/>}
+                    ? <ChevronLeftIcon color={ORANGE_COLOR} size={getFontScaledSize(36)}/>
+                    : <ChevronRightIcon color={ORANGE_COLOR} size={getFontScaledSize(36)}/>}
                 markedDates={{
                     [date]: {selected: true, selectedColor: ORANGE_COLOR},
                 }}
@@ -56,7 +52,26 @@ const CalendarModal = (props) => {
                 minDate={props.minDate}
                 onDayPress={(day) => setDate(day.dateString)}
                 style={{
-                    width: props.width ? props.width : deviceWidth / 1.15
+                    width: props.width ? props.width : deviceWidth / 1.15,
+                }}
+                theme={{
+
+                    todayButtonFontSize: getFontScaledSize(23),
+                    textMonthFontSize: getFontScaledSize(23),
+                    textDayHeaderFontSize: getFontScaledSize(16),
+                    textDayFontSize: getFontScaledSize(16),
+                    'stylesheet.calendar.header': {
+                        monthText: {
+                            fontSize: getFontScaledSize(23),
+                            fontWeight: '600', // default is 300
+                            color: BLACK_COLOR,
+                        },
+                        dayTextColor: {
+                            fontSize: getFontScaledSize(23),
+                            fontWeight: '600', // default is 300
+                            color: BLACK_COLOR,
+                        }
+                    }
                 }}
             />
             <Footer/>
@@ -68,7 +83,7 @@ const styles = StyleSheet.create({
     title: {
         color: BLACK_COLOR,
         fontWeight: '600',
-        fontSize: deviceWidth / 23
+        fontSize: getFontScaledSize(23)
     },
     cancelButton: {
         borderWidth: 2,
@@ -91,7 +106,7 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         paddingLeft: 10,
         color: ORANGE_COLOR,
-        fontSize: deviceWidth / 23,
+        fontSize: getFontScaledSize(21),
         fontWeight: '600'
     },
     confirmButton: {
@@ -107,7 +122,7 @@ const styles = StyleSheet.create({
     confirmButtonText: {
         paddingLeft: 10,
         color: WHITE_COLOR,
-        fontSize: deviceWidth / 23,
+        fontSize: getFontScaledSize(21),
         fontWeight: '600'
     }
 });

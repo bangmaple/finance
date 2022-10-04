@@ -1,17 +1,25 @@
 import React, {createRef, useState} from 'react';
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
-import {SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {deviceHeight, deviceWidth} from "../../../utils";
-import {BLACK_COLOR, GRAY_COLOR, INPUT_GRAY_COLOR, ORANGE_COLOR, WHITE_COLOR} from "../../../constants";
-import {CalendarIcon, CurrencyDollarIcon, QueueListIcon} from "react-native-heroicons/outline";
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import {deviceWidth, getFontScaledSize} from "../../../utils";
+import {BLACK_COLOR, WHITE_COLOR} from "../../../constants";
 import Header from "../../../components/header.component";
 import dayjs from "dayjs";
-import CalendarModal from "../../../components/calendar-modal.component";
 import Switch from "react-native/Libraries/Components/Switch/Switch";
-import UploadImage from "../../../components/app/upload-expense/upload-image.component";
 import Footer from "../../../components/app/upload-expense/footer.component";
-import RenderSelectSaleType from "../../../components/app/upload-expense/render-sale-type.component";
+import RenderSelectTransactionDate from "../../../components/app/upload-expense/render-transaction-date/render-transaction-date.component";
+import RenderTransactionType
+    from "../../../components/app/upload-expense/render-transaction-type/render-transaction-type.component";
+import RenderInputAmount
+    from "../../../components/app/upload-expense/render-input-amount/render-input-amount.component";
+import RenderTagToProject
+    from "../../../components/app/upload-expense/render-tag-to-project/render-tag-to-project.component";
+import RenderUploadImage
+    from "../../../components/app/upload-expense/render-upload-image/render-upload-image.component";
+import RenderSelectSaleType from "../../../components/app/upload-expense/render-sale-type/render-sale-type.component";
+
+const UPLOAD_EXPENSE_HEADER_TITLE = "Upload my expense";
 
 const UploadExpenseScreen = () => {
     const navigation = useNavigation();
@@ -20,254 +28,62 @@ const UploadExpenseScreen = () => {
     const [isTransactionDateModal, setTransactionDateModalShown] = useState(false);
     const [expense, setExpense] = useState({
         transactionDate: dayjs().format('YYYY-MM-DD'),
+        isPaid: false,
         project: undefined,
         transactionType: 'CASH',
         saleType: undefined,
         amount: undefined
     });
-
-    const RenderTagProject = () => {
-        return (
-            <View style={{
-                flexDirection: 'column',
-            }}>
-                <View style={{
-                    paddingBottom: 6,
-                }}>
-                    <Text style={{
-                        color: BLACK_COLOR,
-                        fontSize: deviceWidth / 23,
-                        fontWeight: '600'
-                    }}>Tag to project</Text>
-                </View>
-                <View style={{
-                    flexDirection: 'row'
-                }}>
-                    <View style={{
-                        borderTopLeftRadius: 8,
-                        borderBottomLeftRadius: 8,
-                        backgroundColor: INPUT_GRAY_COLOR,
-                        height: 50,
-                        width: 50,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <QueueListIcon color={GRAY_COLOR} size={deviceWidth / 14}/>
-                    </View>
-                    <TouchableOpacity style={{
-                        borderLeftColor: GRAY_COLOR,
-                        borderLeftWidth: 1,
-                        height: 50,
-                        width: deviceWidth / 1.6,
-                        borderBottomRightRadius: 8,
-                        borderTopRightRadius: 8,
-                        backgroundColor: INPUT_GRAY_COLOR,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        paddingHorizontal: 10,
-                    }}>
-                        <Text style={{color: GRAY_COLOR, fontWeight: '600', fontSize: deviceWidth / 21}}>
-                            Select a project...
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    }
-
-    const RenderCalendarModal = () => {
-        if (isTransactionDateModal) {
-            return <CalendarModal
-                height={deviceHeight / 1.7}
-                isOpened={isTransactionDateModal}
-                maxDate={dayjs().format('YYYY-MM-DD')}
-                value={expense.transactionDate}
-                setValue={(val) => setExpense({
-                    ...expense,
-                    transactionDate: val,
-                })}
-                title="Choose a transaction date"
-                toggleOpened={() => setTransactionDateModalShown(!isTransactionDateModal)}
-            />
-        }
-        return null;
-    }
-
-    const numberRef = createRef();
-
-    const RenderInputAmount = () => {
-        return (
-            <View style={styles.inputContainer}>
-                <View style={styles.inputTitleContainer}>
-                    <Text style={styles.inputTitleText}>Amount</Text>
-                </View>
-                <View style={styles.inputInnerContainer}>
-                    <View style={styles.inputInnerLogoContainer}>
-                        <CurrencyDollarIcon color={GRAY_COLOR} size={deviceWidth / 14}/>
-                    </View>
-                    <TextInput
-                        numberOfLines={1}
-                        value={numberRef.current}
-                        keyboardType="number-pad"
-                        style={styles.inputInnerTextInput}
-                        onChangeText={(val) => {numberRef.current = val}}
-                               placeholder="Input your amount..." placeholderColor={GRAY_COLOR}>
-                    </TextInput>
-                </View>
-            </View>
-        );
-    }
-
-    const RenderSelectTransactionDate = () => {
-        return (
-            <View style={{flexDirection: 'column', paddingTop: 10,}}>
-                <View style={{
-                    paddingBottom: 6,
-                }}>
-                    <Text style={{color: BLACK_COLOR, fontSize: deviceWidth / 23, fontWeight: '600'}}>Transaction
-                        date</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                    <View style={{
-                        borderTopLeftRadius: 8,
-                        borderBottomLeftRadius: 8,
-                        backgroundColor: INPUT_GRAY_COLOR,
-                        height: 50,
-                        width: 50,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <CalendarIcon color={GRAY_COLOR} size={deviceWidth / 14}/>
-                    </View>
-                    <TouchableOpacity
-                        style={{
-                            borderLeftColor: GRAY_COLOR,
-                            borderLeftWidth: 1,
-                            height: 50,
-                            width: deviceWidth / 1.35,
-                            borderBottomRightRadius: 8,
-                            borderTopRightRadius: 8,
-                            backgroundColor: INPUT_GRAY_COLOR,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            paddingHorizontal: 10,
-                        }}
-                        onPress={() => setTransactionDateModalShown(!isTransactionDateModal)}>
-                        <Text style={{
-                            color: GRAY_COLOR,
-                            fontSize: deviceWidth / 21,
-                            fontWeight: '600'
-                        }}>{dayjs(expense.transactionDate, {
-                            format: 'YYYY-MM-DD'
-                        }).format('MM-DD-YYYY')}</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    };
-
-    const RenderTransactionType = () => {
-        return (
-            <View style={{flexDirection: 'column', paddingTop: 10,}}>
-                <View style={{
-                    paddingBottom: 6,
-                }}>
-                    <Text style={{color: BLACK_COLOR, fontSize: deviceWidth / 23, fontWeight: '600'}}>Transaction
-                        type</Text>
-                </View>
-                <View style={{
-                    flexDirection: 'row'
-                }}>
-                    <TouchableOpacity onPress={() => setExpense({
-                        ...expense,
-                        transactionType: 'CASH'
-                    })} style={[styles.transactionTypeCashContainer, {
-                        borderTopLeftRadius: 8,
-                        borderBottomLeftRadius: 8,
-                    }, expense.transactionType === 'CASH' ? {backgroundColor: ORANGE_COLOR} : undefined
-                    ]}>
-                        <Text style={[styles.transactionTypeText,
-                            expense.transactionType === 'CASH' ? {color: WHITE_COLOR} : undefined
-                        ]}>CASH</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setExpense({
-                        ...expense,
-                        transactionType: 'BANK'
-                    })} style={[styles.transactionTypeCashContainer, {
-                        borderTopRightRadius: 8,
-                        borderBottomRightRadius: 8,
-                    }, expense.transactionType === 'BANK' ? {backgroundColor: ORANGE_COLOR} : undefined]}>
-                        <Text style={[styles.transactionTypeText,
-                            expense.transactionType === 'BANK' ? {color: WHITE_COLOR} : undefined]}>
-                            BANK
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    }
-
+    const expenseAmountRef = createRef();
 
     return (
-        <SafeAreaView style={{
-            flex: 1,
-            backgroundColor: WHITE_COLOR
-        }}>
+        <SafeAreaView style={styles.container}>
 
-            <RenderCalendarModal/>
-            <Header text="Upload my expense"/>
-            <View style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                flex: 1,
-                flexDirection: 'column',
-            }}>
-
+            <Header text={UPLOAD_EXPENSE_HEADER_TITLE}/>
+            <View style={styles.wrapper}>
                 <ScrollView style={{}}>
-                    <View style={{
-                        flex: 1,
-                        paddingVertical: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}>
-
-                        <UploadImage/>
-                        <View style={{
-                            flexDirection: 'column'
-                        }}>
+                    <View style={styles.bodyContainer}>
+                        <RenderUploadImage/>
+                        <View>
                             <RenderSelectSaleType setSaleTypeExpense={(val) => setExpense({
                                 ...expense,
                                 saleType: val
                             })}/>
-                            <RenderSelectTransactionDate/>
-                            <View style={{
-                                flexDirection: 'row',
-                                paddingTop: 10,
-
-                            }}>
-                                <View style={{
-                                    flexDirection: 'column'
-                                }}>
-                                    <View style={{
-                                        paddingBottom: 6,
-                                    }}>
-                                        <Text style={{
-                                            color: BLACK_COLOR,
-                                            fontSize: deviceWidth / 23,
-                                            fontWeight: '600'
-                                        }}>Paid</Text>
+                            <RenderSelectTransactionDate
+                                toggleTransactionDateModal={() => setTransactionDateModalShown(!isTransactionDateModal)}
+                                expenseTransactionDate={expense.transactionDate}
+                                setExpenseTransactionDate={(val) => setExpense({
+                                    ...expense,
+                                    transactionDate: val,
+                                })}
+                            />
+                            <View style={{flexDirection: 'row', paddingTop: 10,}}>
+                                <View>
+                                    <View style={{paddingBottom: 6,}}>
+                                        <Text style={{color: BLACK_COLOR, fontSize: getFontScaledSize(23), fontWeight: '600'}}>
+                                            Paid
+                                        </Text>
                                     </View>
-                                    <Switch/>
+                                    <Switch value={expense.isPaid} onValueChange={(val) => setExpense({
+                                        ...expense,
+                                        isPaid: val
+                                    })}/>
                                 </View>
-                                <RenderTagProject/>
+                                <RenderTagToProject/>
                             </View>
-                            <RenderTransactionType/>
-                            <RenderInputAmount/>
+                            <RenderTransactionType
+                                expenseTransactionType={expense.transactionType}
+                                setExpenseTransactionType={(val) => setExpense({
+                                    ...expense,
+                                    transactionType: val
+                                })}
+                            />
+                            <RenderInputAmount
+                                    expenseAmount={expenseAmountRef.current}
+                                    setExpenseAmount={(val) => {expenseAmountRef.current = val}}
+                            />
                         </View>
                     </View>
-
                 </ScrollView>
                 <Footer data={expense}/>
             </View>
@@ -276,62 +92,21 @@ const UploadExpenseScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        paddingTop: 10,
+    container: {
+        flex: 1,
+        backgroundColor: WHITE_COLOR
     },
-    inputTitleContainer: {
-        paddingBottom: 6,
-    },
-    inputTitleText: {
-        color: BLACK_COLOR,
-        fontWeight: '600',
-        fontSize: deviceWidth / 23
-    },
-    inputInnerContainer: {
-        flexDirection: 'row'
-    },
-    inputInnerLogoContainer: {
-        borderTopLeftRadius: 8,
-        borderBottomLeftRadius: 8,
-        backgroundColor: INPUT_GRAY_COLOR,
-        height: 50,
-        width: 50,
+    wrapper: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-between',
+        flex: 1,
+        flexDirection: 'column',
     },
-    inputInnerTextInput: {
-        fontWeight: '600',
-        fontSize: deviceWidth / 21,
-        borderLeftColor: GRAY_COLOR,
-        borderLeftWidth: 1,
-        height: 50,
-        width: deviceWidth / 1.35,
-        borderBottomRightRadius: 8,
-        borderTopRightRadius: 8,
-        backgroundColor: INPUT_GRAY_COLOR,
+    bodyContainer: {
+        flex: 1,
+        paddingVertical: 10,
         display: 'flex',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
-    },
-    inputInnerTextPlaceholder: {
-        color: GRAY_COLOR,
-        fontWeight: '600',
-        fontSize: deviceWidth / 21
-    },
-
-    transactionTypeCashContainer: {
-        height: deviceHeight / 16,
-        width: deviceWidth / 2.3,
-        backgroundColor: INPUT_GRAY_COLOR,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    transactionTypeText: {
-        color: GRAY_COLOR,
-        fontWeight: '600',
-        fontSize: deviceWidth / 21
+        alignItems: 'center',
     }
 });
 
