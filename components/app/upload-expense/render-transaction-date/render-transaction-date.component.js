@@ -23,12 +23,13 @@ const RenderSelectTransactionDate = (props) => {
                 </Text>
             </View>
             <View style={styles.inputContainer}>
-                <View style={styles.inputIconContainer}>
-                    <CalendarIcon color={GRAY_COLOR} size={getFontScaledSize(36)}/>
-                </View>
+
                 <TouchableOpacity
                     style={styles.inputTextContainer}
                     onPress={() => setModalShown(!isModalShown)}>
+                <View style={styles.inputIconContainer}>
+                    <CalendarIcon color={GRAY_COLOR} size={getFontScaledSize(36)}/>
+                </View>
                     <Text style={styles.inputText}>
                         {convertYearMonthDateToMonthDateYear(props.expenseTransactionDate)}
                     </Text>
@@ -69,24 +70,25 @@ const styles = StyleSheet.create({
         width: 50,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRightColor: GRAY_COLOR,
+        borderRightWidth: 1,
     },
     inputTextContainer: {
-        borderLeftColor: GRAY_COLOR,
-        borderLeftWidth: 1,
         height: 50,
-        width: deviceWidth / 1.35,
-        borderBottomRightRadius: 8,
-        borderTopRightRadius: 8,
+        width: deviceWidth / 1.15,
+        borderRadius: 8,
+        borderRadius: 8,
         backgroundColor: INPUT_GRAY_COLOR,
         display: 'flex',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     inputText: {
         color: GRAY_COLOR,
         fontSize: getFontScaledSize(21),
-        fontWeight: '600'
+        fontWeight: '600',
+        paddingHorizontal: 10,
     }
 });
 

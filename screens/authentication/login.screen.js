@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import LoginBackground from '../../assets/background/login-background.svg';
 import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {deviceHeight, deviceWidth, getFontScaledSize} from "../../utils";
+import {deviceHeight, deviceWidth, dp, getFontScaledSize} from "../../utils";
 import {BLACK_COLOR, INPUT_GRAY_COLOR, ORANGE_COLOR, RED_COLOR, ROUTER, WHITE_COLOR} from "../../constants";
 import {boxShadow} from "../../utils";
 import Button from "../../components/button.component";
@@ -77,7 +77,7 @@ const LoginScreen = () => {
                     </View>*/}
 
                     <Button styles={styles.loginButton} onPress={() => handleLogin()}>
-                        <LockOpenIcon color={WHITE_COLOR} size={getFontScaledSize(30)}/>
+                        <LockOpenIcon color={WHITE_COLOR} size={getFontScaledSize(26)}/>
                         <Text style={styles.loginButtonText}>Login</Text>
                     </Button>
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         height: deviceHeight / 2.8,
         width: deviceWidth / 1.15,
-        paddingVertical: 16,
+        paddingVertical: dp(48),
         borderRadius: 8,
         backgroundColor: WHITE_COLOR
     },
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         color: WHITE_COLOR,
-        fontSize: getFontScaledSize(23),
+        fontSize: getFontScaledSize(20),
         fontWeight: '600',
         paddingLeft: 10,
     },
@@ -132,16 +132,16 @@ const styles = StyleSheet.create({
     inputTitle: {
         color: BLACK_COLOR,
         fontWeight: '600',
-        fontSize: getFontScaledSize(23),
+        fontSize: getFontScaledSize(19),
         paddingRight: 6,
     },
     inputTitleAsterik: {
         color: RED_COLOR, fontWeight: '600'
     },
     formInput: {
-        fontSize: getFontScaledSize(23),
+        fontSize: getFontScaledSize(14),
         height: deviceHeight / 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: dp(32),
         borderRadius: 8,
         borderColor: INPUT_GRAY_COLOR,
         borderWidth: 1,

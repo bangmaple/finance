@@ -37,7 +37,11 @@ const RenderUploadImage = (props) => {
                 <Image style={styles.imageContainer} source={image}/>
             </TouchableOpacity>;
         }
-        return <BlankImage/>
+        return <TouchableOpacity
+            style={{alignItems: 'center'}}
+            onLongPress={() => navigation.navigate(UPLOAD_IMAGE_LIST_ROUTE)}>
+                <BlankImage/>
+            </TouchableOpacity>
     }
 
     return (

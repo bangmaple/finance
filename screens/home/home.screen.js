@@ -13,14 +13,11 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  const handleOnPress = () => {
-    alert(1);
-  }
 
   const Header = () => {
     return (
       <View>
-        <Text style={{fontWeight: '600', fontSize: getFontScaledSize(36)}}>Hello User!</Text>
+        <Text style={{fontWeight: '600', fontSize: getFontScaledSize(21)}}>Hello User!</Text>
       </View>
     );
   }
@@ -67,7 +64,6 @@ const HomeScreen = () => {
     return (
       <View style={{
         flex: 1,
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
       }}>
@@ -94,20 +90,18 @@ const styles = StyleSheet.create({
   },
   section: {
     display: 'flex',
-    alignSelf: 'flex-start',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     backgroundColor: WHITE_COLOR,
     width: deviceWidth / 1.1,
     height: deviceHeight / 6,
-    borderRadius: 6,
-    paddingTop: dp(32),
+    borderRadius: 8,
   },
   sectionButton: {
     height: deviceHeight / 7.6,
     width: deviceWidth / 2.4,
     flexDirection: 'column',
-    marginHorizontal: dp(16),
     paddingHorizontal: dp(32),
     paddingVertical: dp(32),
   },
@@ -115,7 +109,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: WHITE_COLOR,
     fontSize: getFontScaledSize(16),
-    paddingTop: 6
+    paddingTop: dp(10)
   }
 })
 

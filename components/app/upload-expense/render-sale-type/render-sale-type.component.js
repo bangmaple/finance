@@ -3,7 +3,7 @@ import {useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {CircleStackIcon} from "react-native-heroicons/outline";
 import {BLACK_COLOR, GRAY_COLOR, INPUT_GRAY_COLOR} from "../../../../constants";
-import {deviceWidth, getFontScaledSize} from "../../../../utils";
+import {deviceHeight, deviceWidth, dp, getFontScaledSize} from "../../../../utils";
 import {SALE_TYPES} from "../../../../faker-data";
 import RenderSaleTypeListModal from "./render-list-modal.component";
 
@@ -36,16 +36,14 @@ const RenderSelectSaleType = (props) => {
                 </Text>
             </View>
             <View style={styles.inputInnerContainer}>
+                <TouchableOpacity onPress={() => setSelectListShow(!isSelectListShown)}
+                    style={styles.inputInnerTextInput}>
                 <View style={styles.inputInnerLogoContainer}>
                     <CircleStackIcon color={GRAY_COLOR} size={getFontScaledSize(36)}/>
                 </View>
-                <TouchableOpacity
-                    onPress={() => setSelectListShow(!isSelectListShown)}
-                    style={styles.inputInnerTextInput}>
-                    <Text
-                        style={styles.inputInnerTextPlaceholder}>
-                        <RenderSaleTypePlaceholder/>
-                    </Text>
+                <Text style={styles.inputInnerTextPlaceholder}>
+                    <RenderSaleTypePlaceholder/>
+                </Text>
                 </TouchableOpacity>
             </View>
             <RenderSaleTypeListModal
@@ -60,18 +58,19 @@ const RenderSelectSaleType = (props) => {
 
 const styles = StyleSheet.create({
     inputContainer: {
-        paddingTop: 10,
+        paddingTop: dp(20),
     },
     inputTitleContainer: {
-        paddingBottom: 6,
+        paddingBottom: dp(10),
     },
     inputTitleText: {
         color: BLACK_COLOR,
         fontWeight: '600',
-        fontSize: getFontScaledSize(23)
+        fontSize: getFontScaledSize(19)
     },
     inputInnerContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+    
     },
     inputInnerLogoContainer: {
         borderTopLeftRadius: 8,
@@ -81,26 +80,26 @@ const styles = StyleSheet.create({
         width: 50,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRightWidth: 1,
+        borderRightColor: GRAY_COLOR,
     },
     inputInnerTextPlaceholder: {
         color: GRAY_COLOR,
         fontWeight: '600',
-        fontSize: getFontScaledSize(23)
+        fontSize: getFontScaledSize(19),
+        paddingHorizontal: 10,
     },
     inputInnerTextInput: {
+        flexDirection: 'row',
         fontWeight: '600',
-        fontSize: deviceWidth / 21,
-        borderLeftColor: GRAY_COLOR,
-        borderLeftWidth: 1,
-        width: deviceWidth / 1.35,
+        fontSize: getFontScaledSize(19),
+        width: deviceWidth / 1.15,
         height: 50,
-        borderBottomRightRadius: 8,
-        borderTopRightRadius: 8,
+        borderRadius: 8,
         backgroundColor: INPUT_GRAY_COLOR,
         display: 'flex',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
+        alignItems: 'center'
     },
 });
 
