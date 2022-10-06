@@ -1,11 +1,12 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from "react-native";
+import {SafeAreaView, StyleSheet, TouchableOpacity} from "react-native";
 
 const ForgotPasswordScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-
+            <TouchableOpacity>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

@@ -10,6 +10,12 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {emailPasswordSignIn} from "../../services/firebase/authentication/email-password-signin.service";
+import InputAsterikText from "../../components/input-asterik.component";
+
+const USERNAME_TITLE = "Username";
+const PASSWORD_TITLE = "Password";
+const USERNAME_PLACEHOLDER = "Your username...";
+const PASSWORD_PLACEHOLDER = "Your password...";
 
 const LoginScreen = () => {
 
@@ -36,33 +42,37 @@ const LoginScreen = () => {
                     <View style={styles.loginForm}>
                         <View style={{width: deviceWidth / 1.35, paddingBottom: 16}}>
                             <View style={styles.loginInputContainer}>
-                                <Text style={styles.inputTitle}>Username</Text>
-                                <Text style={styles.inputTitleAsterik}>*</Text>
+                                <Text style={styles.inputTitle}>
+                                    {USERNAME_TITLE}
+                                </Text>
+                                <InputAsterikText/>
                             </View>
                             <TextInput
                                 onChangeText={(val) => setCredentials({...credentials, email: val})}
                                 placeholderTextColor={INPUT_GRAY_COLOR}
-                                placeholder="Your username..."
+                                placeholder={USERNAME_PLACEHOLDER}
                                 style={styles.formInput}>
                             </TextInput>
                         </View>
 
                         <View style={{width: deviceWidth / 1.35, display: 'flex'}}>
                             <View style={styles.loginInputContainer}>
-                                <Text style={styles.inputTitle}>Password</Text>
-                                <Text style={styles.inputTitleAsterik}>*</Text>
+                                <Text style={styles.inputTitle}>
+                                    {PASSWORD_TITLE}
+                                </Text>
+                                <InputAsterikText/>
                             </View>
                             <TextInput
                                 onChangeText={(val) => setCredentials({...credentials, password: val})}
                                 secureTextEntry
                                 placeholderTextColor={INPUT_GRAY_COLOR}
-                                placeholder="Your password..."
+                                placeholder={PASSWORD_PLACEHOLDER}
                                 style={styles.formInput}>
                             </TextInput>
                         </View>
                     </View>
 
-                    {/* <View style={styles.loginOptionContainer}>
+                     <View style={styles.loginOptionContainer}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate(ROUTER.AUTHENTICATION.REGISTER_SCREEN)}
                         >
@@ -74,7 +84,7 @@ const LoginScreen = () => {
                         >
                             <Text style={styles.loginOptionText}>Forgot password?</Text>
                         </TouchableOpacity>
-                    </View>*/}
+                    </View>
 
                     <Button styles={styles.loginButton} onPress={() => handleLogin()}>
                         <LockOpenIcon color={WHITE_COLOR} size={getFontScaledSize(26)}/>
@@ -98,7 +108,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        flex: 0.6
     },
     loginContainer: {
         display: 'flex',
@@ -135,9 +144,6 @@ const styles = StyleSheet.create({
         fontSize: getFontScaledSize(19),
         paddingRight: 6,
     },
-    inputTitleAsterik: {
-        color: RED_COLOR, fontWeight: '600'
-    },
     formInput: {
         fontSize: getFontScaledSize(14),
         height: deviceHeight / 20,
@@ -156,7 +162,7 @@ const styles = StyleSheet.create({
     loginOptionText: {
         color: ORANGE_COLOR,
         fontWeight: '400',
-        fontSize: getFontScaledSize(23)
+        fontSize: getFontScaledSize(16)
     }
 });
 
